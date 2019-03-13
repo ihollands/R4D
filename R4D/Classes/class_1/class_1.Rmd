@@ -1,0 +1,22 @@
+---
+title: "Class 1 Exercises"
+output:
+  html_document:
+    df_print: paged
+---
+##My first Exercise
+
+```{r}
+myVar <- 'Plink the ink and creamies'
+print(myVar)
+```
+
+```{r}
+c_vector <- c('Yuri', 'is', 'the', 'best')
+n_vector <- c(1, 2, 3, 4)
+## factor vector?
+odds_to_100 <-seq(from = 1, to = 100, by = 2)
+vectors_list <- list(c_vector, n_vector)
+my_df <- data.frame(c_vector, n_vector)
+print(c(1.034, FALSE))
+```
