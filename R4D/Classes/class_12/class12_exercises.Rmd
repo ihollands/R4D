@@ -1,0 +1,88 @@
+---
+title: "Class 12 - In class exercises"
+author: Ian Hollands
+date: "Date created: `r Sys.Date()`"
+output:
+  html_notebook:
+    highlight: kate
+    smart: yes
+    theme: cosmo
+    code_folding: show
+    df_print: paged
+---
+
+##Task set 1
+
+1. Use `paste()` to create a new vector of greetings that appends "Hi" to every odd name and "Hello" to every even name in the following vector of names c("Anders", "Tommy", "Anna", "Liz"). The output of your command should be as follows: `"Hi Anders" "Hello Tommy" "Hi Anna" "Hello Liz"`
+
+```{r}
+paste( c('Hi', 'Hello', 'Hi', 'Hello'), c("Anders", "Tommy", "Anna", "Liz"))
+```
+
+
+2. I am trying to filter out rows from the `flights` data that took off from either EWR or JFK. I have tried out two different versions below. Explain in a few sentences why the first output has lesser number of rows than the second. Which out of the two is the correct method?
+
+The first has fewer rows because it is recycling the c("EWR", "JFK") vector, in that order, and comparing against each corresponding value of origin. So there will be many fewer coincidences than the (probably) intended code of the second.
+```{r}
+library(tidyverse); library(nycflights13)
+
+flights %>% 
+    filter(origin == c("EWR", "JFK"))
+```
+
+```{r}
+flights %>% 
+    filter(origin %in% c("EWR", "JFK"))
+```
+
+3. I am trying to summarise by origin to create a variable that shows the mean of the square of departure delay. Why am I getting the error?
+
+I assume that ^ 2 is operating on each value of dep_delay, so there is no summarization returned but the number of values inputed with their values squared
+```{r}
+flights
+flights %>%
+  mutate(dep_delay = dep_delay ^ 2)
+  
+```
+
+4. Correct the code above.
+
+
+##Task Set 2
+1. Go to your desktop and create a folder called "temp_data".
+
+2. Store the csv file that I shared with you in this folder.
+
+3. Navigate to the temp_data folder and run `list.files()` to see if the csv file exists in the folder
+
+```{r}
+list.files('~/Desktop/temp_data')
+```
+
+
+4. Use `read_csv()` to load and assign this to a variable called `csv_data`.
+```{r}
+csvData <- read_csv('~/Desktop/temp_data/airlines.csv')
+```
+
+
+5. Go to the folder where this notebook is stored and create a new folder called "data"
+
+6. Save the .dta and .xlsx file that I shared with you in this folder
+
+7. Use `read_dta()` to load the .dta file (make sure to assign it to a variable of your choice)
+```{r}
+library(haven)
+read_dta('~/Desktop/temp_data/data/airlines.dta')
+```
+
+
+8. Use the `read_excel()` command to load the first sheet of the .xlsx file.
+```{r}
+library(readxl)
+read_excel('~/Desktop/temp_data/data/nycFlightsData.xlsx')
+```
+
+
+
+

@@ -1,0 +1,26 @@
+---
+title: "TWS Transaction Data Analysis"
+author: "Ian Hollands"
+output: html_notebook
+---
+
+
+```{r}
+# load libraries
+library(tidyverse)
+```
+
+
+```{r message=FALSE, warning=FALSE}
+transactions_clean <- read_csv('data/transactions_data.csv') %>% 
+  rename_all(funs(make.names(.))) %>% 
+  rename(Amount = 'Campaign.Data.4', Payment.Type = Campaign.Data.6, Type = 'Campaign.Data.7', State = 'Campaign.Data.17') %>% 
+  select(-grep('Campaign.Data.(3|5|15|19|20|21|22|23|24|26)|Additional|X52', current_vars())) %>% 
+  filter(Campaign.Status == 'success') %>% 
+  select(-Campaign.Status)
+```
+```{r}
+names(transactions_clean)
+length(unique(transactions_clean$Supporter.Email)) == length(unique(transactions_clean$Supporter.ID))
+```
+
